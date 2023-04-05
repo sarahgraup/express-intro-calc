@@ -7,10 +7,10 @@ function convertStrNums(strNums) {
 const nums = [];
   for(let strNum of strNums){
     const num = Number(strNum);
-    nums.push(num);
     if(isNaN(num)){
-      throw new BadRequestError(`${num} is not a number`)
+      throw new BadRequestError(`${strNum} is not a number`)
     }
+    nums.push(num);
   }
   return nums;
 }

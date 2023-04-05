@@ -1,3 +1,4 @@
+"use strict";
 /** Simple demo Express app. */
 
 const express = require("express");
@@ -23,25 +24,49 @@ app.get("/mean", function (req, res) {
 
   const strNums = req.query.nums.split(",");
   console.log(strNums);
-  debugger;
   const nums = convertStrNums(strNums);
-  debugger;
   console.log(nums);
 
   return res.json({
     operation: "mean",
     value: findMean(nums),
-
   });
-
 })
 
 
 /** Finds median of nums in qs: returns {operation: "median", result } */
+app.get("/median", function (req, res) {
+  if (req.query.nums === undefined) {
+    throw new BadRequestError("nums are required");
+  }
+
+  const strNums = req.query.nums.split(",");
+  const nums = convertStrNums(strNums);
+  console.log(nums);
+
+  return res.json({
+    operation: "median",
+    value: findMedian(nums),
+  });
+})
 
 
 /** Finds mode of nums in qs: returns {operation: "mean", result } */
+app.get("/mode", function (req, res) {
+  if (req.query.nums === undefined) {
+    throw new BadRequestError("nums are required");
+  }
 
+  const strNums = req.query.nums.split(",");
+  console.log(strNums);
+  const nums = convertStrNums(strNums);
+  console.log(nums);
+
+  return res.json({
+    operation: "mode",
+    value: findMode(nums),
+  });
+})
 
 /** 404 handler: matches unmatched routes; raises NotFoundError. */
 app.use(function (req, res) {
